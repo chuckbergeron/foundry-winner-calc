@@ -33,7 +33,7 @@ const run = async () => {
     fs.writeFileSync(paramsPath, params)
 
     await new Promise((resolve, reject) => {
-      exec(`forge script ${scriptPath}:WinnerCalcScript --config-path ${configPath} --cache-path ${cachePath} --memory-limit 268435456 --skip-simulation`, (error, stdout, stderr) => {
+      exec(`forge script ${scriptPath}:WinnerCalcScript --config-path ${configPath} --cache-path ${cachePath} --memory-limit 268435456 --skip-simulation`, { maxBuffer: 1024 * 1024 * 100 }, (error, stdout, stderr) => {
         if(error ?? stderr) {
           if (debug) {
             console.log(stdout)
